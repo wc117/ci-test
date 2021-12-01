@@ -1,0 +1,17 @@
+name: CI test
+on:
+  push:
+    branches: [master]
+
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  ci-tests:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [ 16.x ]
+    steps:
+      - run: npm install -g ganache-cli
+      - run: ganache-cli --fork https://eth-mainnet.alchemyapi.io/v2/${{ secrets.ALCHEMY_ID }}@11780000 
